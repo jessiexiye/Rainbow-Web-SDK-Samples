@@ -12,6 +12,9 @@ angular.module("sample").component("rbxContacts", {
     var listeners = [];
 
     this.$onInit = function() {
+      var ctrl = $scope;
+      $scope.isConnectedUser = false;
+
       // Subscribe to XMPP connection change
       listeners.push(
         document.addEventListener(
@@ -51,6 +54,29 @@ angular.module("sample").component("rbxContacts", {
           onContactsInformationChanged
         )
       );
+
+      $scope.sendMessage = function() {
+        rainbowSDK.contacts.searchByName("RT Li", 1).then(function(usersFound) {
+          if(usersFound.length > 0) {
+              // At least one user has been found
+              usersFound.forEach(function(user) {
+                  // Do something with each contact returned
+                  console.log("Jessie, contact found");
+                  rainbowSDK.im.sendMessageToConversation(user.conversation, "Hello, I'm your agent!");
+                  rainbowSDK.im.sendMessageToConversation(user.conversation, "My name is Jessie");
+              });
+          }
+          else {
+              // No contact returned
+              console.log("Jessie, no contact found")
+          }
+        });
+      }
+      
+      // if(this.item.id === rainbowSDK.contacts.getConnectedUser().id) {
+			// 	console.log("Remove button");
+			// 	$scope.isConnectedUser = true;
+			// }
     };
 
     this.$onDestroy = function() {

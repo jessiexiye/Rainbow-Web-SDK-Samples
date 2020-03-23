@@ -22,7 +22,36 @@ angular.module("sample").component("rbxConnection", {
       }
     ];
 
+    $scope.specialities = [
+      {
+        id: 0,
+        value: "order",
+        name: "Order Consulting"
+      },
+      {
+        id: 1,
+        value: "product",
+        name: "Product Consulting"
+      },
+      {
+        id: 2,
+        value: "destination",
+        name: "Destination Information"
+      },
+      {
+        id: 3,
+        value: "travel",
+        name: "Travel Guide"
+      },
+      {
+        id: 4,
+        value: "complaints",
+        name: "Complaints"
+      }
+    ];
+
     $scope.selectedItem = $scope.hosts[0];
+    $scope.selectedSpeciality = $scope.specialities[0];
 
     var handlers = [];
 
@@ -35,6 +64,7 @@ angular.module("sample").component("rbxConnection", {
         case "rainbow":
           rainbowSDK.connection
             .signinOnRainbowOfficial($scope.user.name, $scope.user.password)
+            //.signinOnRainbowOfficial("664276@qq.com", "Asd@123456")
             .then(function(account) {
               console.log("[DEMO] :: Successfully signed!");
               $scope.isLoading = false;
@@ -45,10 +75,19 @@ angular.module("sample").component("rbxConnection", {
               $scope.isLoading = false;
               $scope.isConnected = false;
             });
+          $scope.createConversation = function() {
+              rainbowSDK.conversations.openConversationForContact($scope.$ctrl.item)
+              .then(function(conversation) {
+                console.log("**************Create coversation when connecting")
+              }).catch(function() {
+                console.log("ERROR");
+              });
+            };
           break;
         default:
           rainbowSDK.connection
             .signin($scope.user.name, $scope.user.password)
+            //.signin("li.jiaxi97@gmail.com", "P#uc9O6nLf(6")
             .then(function(account) {
               console.log("[DEMO] :: Successfully signed!");
               $scope.isLoading = false;
@@ -59,6 +98,31 @@ angular.module("sample").component("rbxConnection", {
               $scope.isLoading = false;
               $scope.isConnected = false;
             });
+
+            //add connection to server
+            var data1={
+              name:$scope.user.name,
+              speciality:$scope.selectedSpeciality.name
+            }
+           
+            var user_detail={}
+            var post_message={
+              type: 'POST',
+              //data: JSON.stringify($scope.selectedSpeciality.name),
+              data: JSON.stringify(data1),
+              contentType: 'application/json',
+              url:'http://localhost:8888/AgentLogin',
+              async: false,
+              dataType: 'json',
+              };
+            var user_detail={}
+            post_message.success = function(data){
+              console.log("Jessie, Success");
+              console.log(JSON.stringify(data));
+              user_detail=data;
+            }
+           
+            $.ajax(post_message)
           break;
       }
     };
@@ -80,7 +144,7 @@ angular.module("sample").component("rbxConnection", {
       if (sessionStorage.connection) {
         $scope.user = angular.fromJson(sessionStorage.connection);
       } else {
-        $scope.user = { name: "", password: "" };
+        // $scope.user = { name: "", password: "" };
       }
 
       if (sessionStorage.host) {

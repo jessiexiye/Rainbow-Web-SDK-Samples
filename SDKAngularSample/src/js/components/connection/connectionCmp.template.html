@@ -10,7 +10,17 @@
 			ng-init="selectedItem = selectedItem || hosts[0]"
 			ng-options="v as v.name for v in hosts">
 			</select>
-		<input 
+		
+		<select
+			id="speciality"
+			class="connectionCmp-select"
+			ng-change="changeValue(a, b)"
+			ng-model="selectedSpeciality"
+			ng-init="selectedSpeciality = selectedSpeciality || specialities[0]"
+			ng-options="x as x.name for x in specialities">
+			</select>
+
+		<input
 			name="username"
 			type="text" 
 			id="username"
@@ -18,6 +28,7 @@
 			placeholder="Your login" 
 			required
 			autofocus/>
+			 
 		<input 
 			name="password"
 			type="password"
@@ -28,7 +39,7 @@
 		<button 
 			class="connectionCmp-btn"
 			ng-disabled="isConnected" 
-			ng-click="signin()">Sign In
+			ng-click="signin()">Sign Innn
 		</button>
 
 		<button 

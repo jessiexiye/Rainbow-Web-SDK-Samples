@@ -12,6 +12,10 @@ angular.module('sample').component('rbxContact', {
 			$scope.createConversation = function() {
 				rainbowSDK.conversations.openConversationForContact($scope.$ctrl.item)
 				.then(function(conversation) {
+					console.log("Jessie, createConversation");	
+					//rainbowSDK.im.sendMessageToConversation($scope.conversation, "Hello this is agent");
+					//conversation.sendExistingMessage("Hello, this is agent");
+					console.log("Jessie, sendMessageToConversation");	
 				}).catch(function() {
 					console.log("ERROR");
 				});
@@ -19,6 +23,7 @@ angular.module('sample').component('rbxContact', {
 
 			$scope.closeConversation = function() {
 				rainbowSDK.conversations.closeConversation($scope.$ctrl.item.conversation).then(function(conversation) {
+					console.log("Jessie, closeConversation");
 				}).catch(function() {
 					console.log("ERROR");
 				});

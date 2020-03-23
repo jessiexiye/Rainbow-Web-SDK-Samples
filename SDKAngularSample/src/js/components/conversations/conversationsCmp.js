@@ -19,6 +19,7 @@ angular.module("sample").component("rbxConversations", {
       conversations.forEach(function(conversation) {
         if (conversation.type === 0) {
           oneToOneConversations.push(conversation);
+          console.log("Jessie, conversationsCmp");
         }
       });
 

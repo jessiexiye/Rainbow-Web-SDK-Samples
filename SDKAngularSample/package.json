@@ -4,7 +4,7 @@
   "description": "Rainbow Web SDK Angular Sample",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/http-server/bin/http-server -o -p 8887"
+    "start": "./node_modules/http-server/bin/http-server -o -p 8888"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/Rainbow-CPaaS/Rainbow-Web-SDK-Samples#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "rainbow-web-sdk": "^1.64.3"
   },
   "devDependencies": {

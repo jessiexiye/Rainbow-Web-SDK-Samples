@@ -32,6 +32,35 @@ b.contactsCmp-state-value {
     color: #009688;
 }
 
+button.contactsCmp-btn {
+    position: absolute;
+    transition: .5s ease;
+    top: 93%;
+    left: 30%;
+    border: none;
+    height: 26px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 100;
+}
+
+button.contactsCmp-btn:enabled {
+    color: white;
+    background: #795548;
+    cursor: pointer;
+}
+
+button.contactsCmp-btn:disabled {
+    color: white;
+    background: #656565;
+}
+
+div.contactsCmp-buttons {
+    flex-grow: 1;
+    text-align: right;
+}
+
 div.contactsCmp-state-result {
     margin: 0 auto;
     width: 100%;
